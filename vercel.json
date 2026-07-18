@@ -3,7 +3,8 @@
   "buildCommand": "npm install",
   "functions": {
     "api/*.js": {
-      "runtime": "nodejs20.x"
+      "runtime": "nodejs@20",
+      "includeFiles": "node_modules/**"
     }
   },
   "redirects": [
