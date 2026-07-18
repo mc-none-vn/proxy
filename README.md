@@ -1,15 +1,34 @@
 <div align="center">
 
-# <img src="https://github.com/user-attachments/assets/935a4057-08c7-4414-a628-93e8e2bb6901" height="41"><sup> API Reference </sup><img src="https://github.com/user-attachments/assets/935a4057-08c7-4414-a628-93e8e2bb6901" height="41">
+# <img src="https://github.com/user-attachments/assets/935a4057-08c7-4414-a628-93e8e2bb6901" height="41"><sup> Automated Serverless Socks5 Proxy Gateway </sup><img src="https://github.com/user-attachments/assets/935a4057-08c7-4414-a628-93e8e2bb6901" height="41">
+A production-ready, high-performance HTTP Proxy Function powered by a self-healing serverless architecture. The core routing and benchmarking engine runs entirely on a secure, closed-source automated backend to guarantee connection speeds and operational uptime.
 
 </div>
 
 > [!IMPORTANT]
 > Base endpoint is `https://proxy.karasu.io.vn`. All API requests must be routed through this base host. Unauthorized host domains will be rejected.
 
+
 ---
 
-### 📂 1. Get Active Proxy List
+## 🔒 Access & Closed-Source Policy
+
+> 🛡️ **CLOSED INTEGRATION STANDARD:** The structural source code, benchmarking modules (`scanProxy.js`), and cloud infrastructure configuration files are strictly encrypted, obfuscated, and sealed for internal infrastructure routing. 
+> 
+> *   **Production Consumer Access Only:** This repository functions solely as a gateway interface. End-users are granted authorization exclusively to interact via the exposed public API endpoints.
+> *   **Usage Integrity:** Any attempt to scrape raw routing indices, guess endpoint variants, or execute unauthorized resource distribution will trigger immediate edge routing locks.
+
+---
+
+## 🛠️ Key Capabilities
+
+* 🔄 **Dynamic Pool Rotation:** The system auto-rotates target routing profiles behind the scenes every 30 minutes.
+* ⚡ **Pre-benched Latency Constraints:** Data routing is dynamically filtered through verified high-speed nodes (under a 3000ms response envelope).
+* 🔒 **Wildcard CORS Architecture:** Full support for seamless Cross-Origin Resource Sharing (`CORS`), making it immediately compatible with client-side applications (`fetch`, `axios`).
+
+---
+
+## 📂 Get Active Proxy List
 
 Fetch the latest verified, high-speed Socks5 proxy list compiled by the automation pipeline.
 
@@ -17,10 +36,10 @@ Fetch the latest verified, high-speed Socks5 proxy list compiled by the automati
 *   **Method:** `GET`
 *   **Authentication:** `None`
 
-#### 📥 Request Structure
+### 📥 Request Structure
 No parameters or headers are required for this endpoint.
 
-#### 📤 Response Structure
+### 📤 Response Structure
 *   **Status:** `200 OK`
 *   **Content-Type:** `text/plain; charset=utf-8`
 *   **Body:** Returns a plain text, newline-separated list of active `IP:Port` combinations.
@@ -33,54 +52,52 @@ No parameters or headers are required for this endpoint.
 
 ---
 
-### 🔄 2. Execute Request via Proxy Gateway
+## 🔄 2. Execute Request via Proxy Gateway
 
 Forward your HTTP requests through the rotating serverless proxy pool to mask your origin.
 
 *   **Endpoint:** `/v1`
-*   **Method:** `GET`
+*   **Method:** `GET`, `POST`, `PUT`, `DELETE`
 *   **Authentication:** `None`
 
-#### 📥 Request Structure
+### 📥 Request Structure
 
-##### URL Query Parameters
+#### URL Query Parameters
 | Parameter | Type     | Position | Required | Description |
 | :-------- | :------- | :------- | :------- | :---------- |
 | `url`     | `string` | Query    | Optional | The target destination URL to fetch. Must be URL-encoded (e.g., `encodeURIComponent(target)`). |
 
-##### Custom Headers
+#### Custom Headers
 | Header         | Type     | Required | Description |
 | :------------- | :------- | :------- | :---------- |
 | `x-target-url` | `string` | Optional | Alternative method to pass the target destination URL. Keeps your request logs cleaner. |
 
 > [!NOTE]
-> The gateway prioritization logic parses the `x-target-url` header first. If empty, it falls back to evaluate the `url` query parameter.
+> The gateway prioritization logic evaluates the `url` query string parameter first. If it is omitted or empty, the controller falls back to evaluate the custom header `x-target-url`.
 
-#### 📤 Response Structure
+### 📤 Response Structure
 
-##### Success Response
-*   **Status:** `200 OK`
-*   **Content-Type:** Matches the target server's response type (typically `application/json`).
+#### Success Response
+*   **Status:** Inherits the specific response status code issued by the downstream server (`200 OK`, `201 Created`, etc.).
+*   **Content-Type:** Matches target delivery parameters (Fully supports transmission of image streams, file blobs, JSON payloads, and audio raw buffers).
 *   **Body:** Returns the exact payload forwarded from the destination server.
 
 ```json
 {
   "ip": "185.245.87.12",
-  "country": "Germany",
-  "proxy_used": "socks5://185.245.87.12:1080"
+  "country": "Germany"
 }
 ```
 
-##### Error Responses
-*   **400 Bad Request** - Triggered when no target URL is provided.
+#### Error Responses
+*   **400 Bad Request** - Triggered when no target destination parameter is present inside the parsing scope.
     ```json
     {
-      "error": "Bad Request",
-      "message": "Target URL is required via 'url' query or 'x-target-url' header."
+      "error": "Missing 'url' parameter specifying the target endpoint."
     }
     ```
 
-*   **403 Forbidden** - Triggered if trying to bypass via unofficial Vercel deployment URLs.
+*   **403 Forbidden** - Triggered if trying to bypass via unofficial deployment host URLs.
     ```json
     {
       "error": "Forbidden",
@@ -88,10 +105,24 @@ Forward your HTTP requests through the rotating serverless proxy pool to mask yo
     }
     ```
 
-*   **502 Bad Gateway** - Triggered if the active proxy node drops the connection or times out (> 3000ms).
+*   **500 Internal Server Error (No Proxies)** - Emitted if backend environmental resources fail to load fallback indices.
     ```json
     {
-      "error": "Bad Gateway",
-      "message": "Failed to fetch target URL through available proxy nodes. Connection timeout."
+      "error": "No proxies found from Vercel env or GitHub fallback."
     }
     ```
+
+*   **500 Vercel Proxy Error** - Emitted when proxy node communication completely drops or connection limits hit execution bounds (> 8000ms).
+    ```json
+    {
+      "error": "Vercel Proxy Error",
+      "message": "connect ETIMEDOUT 45.77.56.112:4145"
+    }
+    ```
+
+---
+
+## 📄 License & Terms
+This system interface is provided under standard consumption conditions.
+
+> **End-User Disclaimer:** The automated proxy pool relies heavily on public global node metrics. System performance metrics, cryptographic handshakes, and route continuity are provided without warranties. Developers are advised to apply localized security layers on top of target authentication headers.
