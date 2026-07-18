@@ -89,36 +89,46 @@ Forward your HTTP requests through the rotating serverless proxy pool to mask yo
 }
 ```
 
-#### Error Responses
-*   **400 Bad Request** - Triggered when no target destination parameter is present inside the parsing scope.
-    ```json
-    {
-      "error": "Missing 'url' parameter specifying the target endpoint."
-    }
-    ```
+<details><summary>Error Responses</summary>
+  <details><summary><b>400 Bad Request</b></summary>
 
-*   **403 Forbidden** - Triggered if trying to bypass via unofficial deployment host URLs.
-    ```json
-    {
-      "error": "Forbidden",
-      "message": "Direct access to this deployment host is blocked. Please use the official gateway domain."
-    }
-    ```
+  > Triggered when no target destination parameter is present inside the parsing scope.
+  > ```json
+  > {
+  >   "error": "Missing 'url' parameter specifying the target endpoint."
+  > }
+  > ```
+  </details>
+  <details><summary><b>403 Forbidden</b></summary>
 
-*   **500 Internal Server Error (No Proxies)** - Emitted if backend environmental resources fail to load fallback indices.
-    ```json
-    {
-      "error": "No proxies found from Vercel env or GitHub fallback."
-    }
-    ```
+  > Triggered if trying to bypass via unofficial deployment host URLs.
+  > ```json
+  > {
+  >   "error": "Forbidden",
+  >   "message": "Direct access to this deployment host is blocked. Please use the official gateway domain."
+  > }
+  > ```
+  </details>
+  <details><summary><b>500 Internal Server Error (No Proxies)</b></summary>
 
-*   **500 Vercel Proxy Error** - Emitted when proxy node communication completely drops or connection limits hit execution bounds (> 8000ms).
-    ```json
-    {
-      "error": "Vercel Proxy Error",
-      "message": "connect ETIMEDOUT 45.77.56.112:4145"
-    }
-    ```
+  > Emitted if backend environmental resources fail to load fallback indices.
+  > ```json
+  > {
+  >   "error": "No proxies found from Vercel env or GitHub fallback."
+  > }
+  > ```
+  </details>
+  <details><summary><b>500 Vercel Proxy Error</b></summary>
+
+  > Emitted when proxy node communication completely drops or connection limits hit execution bounds (> 8000ms).
+  > ```json
+  > {
+  >   "error": "Vercel Proxy Error",
+  >   "message": "connect ETIMEDOUT 45.77.56.112:4145"
+  > }
+  > ```
+  </details>
+</details>
 
 ---
 
