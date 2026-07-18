@@ -1,0 +1,34 @@
+name: Scan & Update Proxy Socks5
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  scanning:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Run Scan
+        run: node scanProxy.js
+
+      - name: Commit and Push proxy.txt
+        run: |
+          git config --global user.name "ProxyBot"
+          git config --global user.email "bot@proxy.com"
+          git add proxy.txt
+          git commit -m "Auto-update proxy list [skip ci]" || exit 0
+          git push
