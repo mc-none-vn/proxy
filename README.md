@@ -12,8 +12,8 @@ A production-ready, high-performance HTTP Proxy Function powered by a self-heali
 ---
 
 ## 🔒 Access & Closed-Source Policy
-
-> 🛡️ **CLOSED INTEGRATION STANDARD:** The structural source code, benchmarking modules (`scanProxy.js`), and cloud infrastructure configuration files are strictly encrypted, obfuscated, and sealed for internal infrastructure routing. 
+> [!WARNING]
+> **CLOSED INTEGRATION STANDARD:** The structural source code, benchmarking modules (`scanProxy.js`), and cloud infrastructure configuration files are strictly encrypted, obfuscated, and sealed for internal infrastructure routing. 
 > 
 > *   **Production Consumer Access Only:** This repository functions solely as a gateway interface. End-users are granted authorization exclusively to interact via the exposed public API endpoints.
 > *   **Usage Integrity:** Any attempt to scrape raw routing indices, guess endpoint variants, or execute unauthorized resource distribution will trigger immediate edge routing locks.
@@ -124,5 +124,5 @@ Forward your HTTP requests through the rotating serverless proxy pool to mask yo
 
 ## 📄 License & Terms
 This system interface is provided under standard consumption conditions.
-
+> [!CAUTION]
 > **End-User Disclaimer:** The automated proxy pool relies heavily on public global node metrics. System performance metrics, cryptographic handshakes, and route continuity are provided without warranties. Developers are advised to apply localized security layers on top of target authentication headers.
