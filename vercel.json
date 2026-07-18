@@ -1,31 +1,28 @@
 {
   "version": 2,
-  "redirects": [
-    {
-      "has": [
-        {
-          "type": "host",
-          "value": "^(?!proxy\\.karasu\\.io\\.vn$)"
-        }
-      ],
-      "source": "/(.*)",
-      "destination": "https://proxy.karasu.io.vn/$1",
-      "permanent": true
+  "builds": [{
+    "src": "proxy.js",
+    "use": "@vercel/python"
+  }],
+  "redirects": [{
+    "has": [{
+      "type": "host",
+      "value": "^(?!proxy\\.karasu\\.io\\.vn$)"
+    }],
+    "source": "/(.*)",
+    "destination": "https://proxy.karasu.io.vn/$1",
+    "permanent": true
+  }],
+  "routes": [{
+    "src": "/list",
+    "dest": "https://raw.githubusercontent.com/mc-none-vn/proxy/main/proxy.txt"
+  }, {
+    "src": "/request",
+    "dest": "/proxy.js",
+    "headers": {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+      "Access-Control-Allow-Headers": "*"
     }
-  ],
-  "routes": [
-    {
-      "src": "/list",
-      "dest": "https://raw.githubusercontent.com/mc-none-vn/proxy/main/proxy.txt"
-    },
-    {
-      "src": "/request",
-      "dest": "/api/proxy.js",
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-        "Access-Control-Allow-Headers": "*"
-      }
-    }
-  ]
+  }]
 }
