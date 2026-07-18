@@ -1,12 +1,6 @@
 {
   "version": 2,
   "buildCommand": "npm install",
-  "functions": {
-    "api/*.js": {
-      "runtime": "nodejs@20",
-      "includeFiles": "node_modules/**"
-    }
-  },
   "redirects": [
     {
       "has": [
