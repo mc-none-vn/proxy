@@ -1,31 +1,11 @@
 {
   "version": 2,
   "builds": [{
-    "src": "proxy.js",
+    "src": "./index.js",
     "use": "@vercel/node"
-  }],
-  "redirects": [{
-    "has": [{
-      "type": "host",
-      "value": "^(?!proxy\\.karasu\\.io\\.vn$)"
-    }],
-    "source": "/(.*)",
-    "destination": "https://proxy.karasu.io.vn/$1",
-    "permanent": true
   }],
   "routes": [{
     "src": "/(.*)",
     "dest": "/"
-  }, {
-    "src": "/list",
-    "dest": "https://raw.githubusercontent.com/mc-none-vn/proxy/main/proxy.txt"
-  }, {
-    "src": "/request",
-    "dest": "/proxy.js",
-    "headers": {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-      "Access-Control-Allow-Headers": "*"
-    }
   }]
 }
