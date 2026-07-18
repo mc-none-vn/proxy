@@ -20,7 +20,7 @@
     },
     {
       "src": "/request",
-      "dest": "/api/index.js",
+      "dest": "/api/proxy.js",
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
