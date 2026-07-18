@@ -89,45 +89,44 @@ Forward your HTTP requests through the rotating serverless proxy pool to mask yo
 }
 ```
 
-<details><summary>Error Responses</summary>
-  <details><summary><b>400 Bad Request</b></summary>
+#### Error Responses
+<details><summary><b>400 Bad Request</b></summary>
 
-  > Triggered when no target destination parameter is present inside the parsing scope.
-  > ```json
-  > {
-  >   "error": "Missing 'url' parameter specifying the target endpoint."
-  > }
-  > ```
-  </details>
-  <details><summary><b>403 Forbidden</b></summary>
+> Triggered when no target destination parameter is present inside the parsing scope.
+> ```json
+> {
+>   "error": "Missing 'url' parameter specifying the target endpoint."
+> }
+> ```
+</details>
+<details><summary><b>403 Forbidden</b></summary>
 
-  > Triggered if trying to bypass via unofficial deployment host URLs.
-  > ```json
-  > {
-  >   "error": "Forbidden",
-  >   "message": "Direct access to this deployment host is blocked. Please use the official gateway domain."
-  > }
-  > ```
-  </details>
-  <details><summary><b>500 Internal Server Error (No Proxies)</b></summary>
+> Triggered if trying to bypass via unofficial deployment host URLs.
+> ```json
+> {
+>   "error": "Forbidden",
+>   "message": "Direct access to this deployment host is blocked. Please use the official gateway domain."
+> }
+> ```
+</details>
+<details><summary><b>500 Internal Server Error (No Proxies)</b></summary>
 
-  > Emitted if backend environmental resources fail to load fallback indices.
-  > ```json
-  > {
-  >   "error": "No proxies found from Vercel env or GitHub fallback."
-  > }
-  > ```
-  </details>
-  <details><summary><b>500 Vercel Proxy Error</b></summary>
+> Emitted if backend environmental resources fail to load fallback indices.
+> ```json
+> {
+>   "error": "No proxies found from Vercel env or GitHub fallback."
+> }
+> ```
+</details>
+<details><summary><b>500 Vercel Proxy Error</b></summary>
 
-  > Emitted when proxy node communication completely drops or connection limits hit execution bounds (> 8000ms).
-  > ```json
-  > {
-  >   "error": "Vercel Proxy Error",
-  >   "message": "connect ETIMEDOUT 45.77.56.112:4145"
-  > }
-  > ```
-  </details>
+> Emitted when proxy node communication completely drops or connection limits hit execution bounds (> 8000ms).
+> ```json
+> {
+>   "error": "Vercel Proxy Error",
+>   "message": "connect ETIMEDOUT 45.77.56.112:4145"
+> }
+> ```
 </details>
 
 ---
