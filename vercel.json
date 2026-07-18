@@ -1,5 +1,17 @@
 {
   "version": 2,
+  "builds": [
+    {
+      "src": "api/proxy.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/request",
+      "dest": "api/proxy.js"
+    }
+  ],
   "redirects": [
     {
       "has": [
